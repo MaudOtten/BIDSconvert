@@ -11,7 +11,7 @@ from os import walk
 def add_vals_postrename(mypath):
 	
 	# TODO include values to be added
-	# values below calculated in calc_echo_spacing_philips.m (/mnt/projects/LISA/BIDS_maud/scripts/)
+	# values below calculated inlog(/mnt/projects/LISA/BIDS_maud/scripts/)
 	# get required values for calculations from sequence description on Philips scanner
 	
 	EES_fmri = 4.3820e-04

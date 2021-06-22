@@ -1,0 +1,24 @@
+{
+  "Name": "BIDS_LISA",
+  "BIDSVersion": "1.4.0",
+  "DatasetType": "raw",
+  "License": "TO DO",
+  "Authors": [
+    "TO DO: Names of people who created / curated this dataset",
+    "TO DO: Names of people who created / curated this dataset"
+  ],
+  "Acknowledgements": "",
+  "HowToAcknowledge": "Please cite this paper: TODO: URL TO PAPER",
+  "Funding": [
+    "TO DO: Grant 1",
+    "TO DO: Grant 2"
+  ],
+  "EthicsApprovals": [
+    "TO DO: Ethics"
+  ],
+  "ReferencesAndLinks": [
+    "TO DO: URL",
+    "TO DO: full citation text"
+  ],
+  "DatasetDOI": "TO DO"
+}

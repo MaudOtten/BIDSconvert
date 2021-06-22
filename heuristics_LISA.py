@@ -22,7 +22,7 @@ def infotodict(seqinfo):
 	"""
 
 
-	# Protocols for LISA
+	# Protocols for DRCMR - Copenhagen
 	# TODO Adjust keys for correct naming for each sequence included in study
 	
 	t1wmprage = create_key('sub-{s[subject]}/{s[session]}/anat/sub-{s[subject]}_{s[session]}_acq-{s[mod]}_T1w')
@@ -48,7 +48,7 @@ def infotodict(seqinfo):
 	other = create_key('sub-{s[subject]}/{s[session]}/other/sub-{s[subject]}_{s[session]}_run-{s[run]}_acq-{s[mod]}_other')
 	
 	
-	# TODO Every protocol needs an entry here, NOTE: only included LISA protocols + 'other' (as check for leftover files)
+	# TODO Every protocol needs an entry here, NOTE: only included DRCMR protocols + 'other' (as check for leftover files)
 	info = {t1wmprage: [], t2w: [], flair: [], flairME: [], dwi: [], dwi_ref: [], asl: [], asl_ref: [], rest_PA : [], rest: [], other: []}
 	
 	
@@ -75,7 +75,7 @@ def infotodict(seqinfo):
 	flair3d5_run = 0
 	flair3d6_run = 0
 	
-	# Loop through each file sequence identified by main
+	# Loop through each file sequence identified by heudiconv
 	for idx, s in enumerate(seqinfo):
 		
 		if s.ProtocolName  is not None:

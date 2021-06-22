@@ -1,2 +1,7 @@
-*.zip
+# folders
 old_code/**
+specs/*
+
+# files
+*.zip
+notes.md

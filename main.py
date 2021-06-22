@@ -364,10 +364,10 @@ def main():
 			if args.session_ID != 'all':
 				if oldses not in args.session_ID:
 					continue
-			
-			if isdir(join(args.output_dir, newsubname, newses)):
-				print('NB! This session has already been converted.')
-				continue
+				
+				if isdir(join(args.output_dir, newsubname, newses)):
+					print('NB! This session has already been converted.')
+					continue
 			
 			# convert files in ses directory (dcm2niix)
 			scandir, success_convs, failed_convs = convert_session(args.subject_ID, oldses, newses, True)

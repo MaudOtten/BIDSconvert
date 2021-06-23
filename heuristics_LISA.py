@@ -25,27 +25,27 @@ def infotodict(seqinfo):
 	# Protocols for DRCMR - Copenhagen
 	# TODO Adjust keys for correct naming for each sequence included in study
 	
-	t1wmprage = create_key('sub-{s[subject]}/{s[session]}/anat/sub-{s[subject]}_{s[session]}_acq-{s[mod]}_T1w')
+	t1wmprage = create_key('{s[subject]}/{s[session]}/anat/{s[subject]}_{s[session]}_acq-{s[mod]}_T1w')
 	
-	t2w = create_key('sub-{s[subject]}/{s[session]}/anat/sub-{s[subject]}_{s[session]}_T2w')
+	t2w = create_key('{s[subject]}/{s[session]}/anat/{s[subject]}_{s[session]}_T2w')
 	
-	flair = create_key('sub-{s[subject]}/{s[session]}/anat/sub-{s[subject]}_{s[session]}_acq-{s[mod]}_FLAIR')
+	flair = create_key('{s[subject]}/{s[session]}/anat/{s[subject]}_{s[session]}_acq-{s[mod]}_FLAIR')
 	
-	flairME = create_key('sub-{s[subject]}/{s[session]}/swi/sub-{s[subject]}_{s[session]}_echo-{s[mod]}_GRE')
+	flairME = create_key('{s[subject]}/{s[session]}/swi/{s[subject]}_{s[session]}_echo-{s[mod]}_GRE')
 	
-	dwi = create_key('sub-{s[subject]}/{s[session]}/dwi/sub-{s[subject]}_{s[session]}_run-{s[run]}_dwi')
+	dwi = create_key('{s[subject]}/{s[session]}/dwi/{s[subject]}_{s[session]}_run-{s[run]}_dwi')
 	
-	dwi_ref = create_key('sub-{s[subject]}/{s[session]}/fmap/sub-{s[subject]}_{s[session]}_acq-dwi_dir-{s[mod]}_run-{s[run]}_epi')
+	dwi_ref = create_key('{s[subject]}/{s[session]}/fmap/{s[subject]}_{s[session]}_acq-dwi_dir-{s[mod]}_run-{s[run]}_epi')
 	
-	asl = create_key('sub-{s[subject]}/{s[session]}/perf/sub-{s[subject]}_{s[session]}_asl')
+	asl = create_key('{s[subject]}/{s[session]}/perf/{s[subject]}_{s[session]}_asl')
 	
-	asl_ref = create_key('sub-{s[subject]}/{s[session]}/perf/sub-{s[subject]}_{s[session]}_m0scan')
+	asl_ref = create_key('{s[subject]}/{s[session]}/perf/{s[subject]}_{s[session]}_m0scan')
 	
-	rest_PA = create_key('sub-{s[subject]}/{s[session]}/fmap/sub-{s[subject]}_{s[session]}_acq-bold_dir-{s[dir]}_run-{s[run]}_epi')
+	rest_PA = create_key('{s[subject]}/{s[session]}/fmap/{s[subject]}_{s[session]}_acq-bold_dir-{s[dir]}_run-{s[run]}_epi')
 	
-	rest = create_key('sub-{s[subject]}/{s[session]}/func/sub-{s[subject]}_{s[session]}_task-rest_run-{s[run]}_bold')
+	rest = create_key('{s[subject]}/{s[session]}/func/{s[subject]}_{s[session]}_task-rest_run-{s[run]}_bold')
 
-	other = create_key('sub-{s[subject]}/{s[session]}/other/sub-{s[subject]}_{s[session]}_run-{s[run]}_acq-{s[mod]}_other')
+	other = create_key('{s[subject]}/{s[session]}/other/{s[subject]}_{s[session]}_run-{s[run]}_acq-{s[mod]}_other')
 	
 	
 	# TODO Every protocol needs an entry here, NOTE: only included DRCMR protocols + 'other' (as check for leftover files)

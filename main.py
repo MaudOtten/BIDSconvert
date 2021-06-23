@@ -28,10 +28,6 @@ def arg_parser():
 	parser.add_argument('-s', '--subject_ID', type=str, required=True,
                     help='Subject ID - required', metavar='sub_ID')
 	
-	#parser.add_argument('-n', '--nr_sessions', type=int,
-	#	                required=True, help='Number of sessions in study (and included in logfile). Unless session ID is given, all sessions are converted.',
-	#	                metavar='nr_of_sessions')
-	
 	parser.add_argument('-o', '--output_dir', type=str,
 		                default='output/', help='Output directory - default: output/', metavar='output_directory')
 	
@@ -44,15 +40,12 @@ def arg_parser():
 	
 	parser.add_argument('-l', '--logfile', type=str,
 		                default='include/logfile.csv', help='Full path to logfile with subject and session ID\'s. See documentation for required format.', metavar='log_file')
-	
+
 	parser.add_argument('--keep_sourcedata', dest='keep_sd', action='store_true', 
 						help='Save source data - yes (True) or no (False), default: False')
 
 	parser.set_defaults(keep_sd=False)
 
-	parser.add_argument('-si', '--study_ID', type=str,
-		                default='', help='Study ID, added to subject number in BIDS names (fx: study ID = lisa, BIDS name = \'sub-lisa001\') - string, default: none',
-		                metavar='study_ID')
 	return parser
 
 
@@ -149,7 +142,7 @@ def get_fn_sep(srow, conv_sessions, nr_s):
 	logfilepath = join(args.output_dir, 'conversion_log')
 	
 	# if source data should be kept, copy files for renaming
-	if args.keep_sourcedata is False:
+	if args.keep_sd is False:
 		mode = 'mv'
 	else:
 		mode = 'cp'
@@ -246,23 +239,13 @@ def main():
 	except:
 		print('NB! Arguments are not passed correctly')
 		return 1
-	
-	#colnames = ['subID']
-	#cols = [0]
-	
-	# get session names based on given nr of session in study
-	#for i in range(args.nr_sessions):
-	#	colnames.append('ses-{:02}'.format(i+1))
-	#	cols.append(i+1)
-	print(args)
 
+	# load logfile (check .csv or tsv)
 	try:
 		if args.logfile.endswith('.csv'):
 			allsubs = pd.read_csv(args.logfile, header=0)
 		elif args.logfile.endswith('.tsv'):
 			allsubs = pd.read_csv(args.logfile, sep='\t', header=0)
-		
-		#allsubs = allsubs.astype(str)
 	except:
 		print('NB! Cannot load log file.\n Make sure the .csv logfile is in the same directory as this script, or pass the full path.')
 		return 1
@@ -270,6 +253,7 @@ def main():
 	# get sub-specific info from csv file
 	srow = allsubs.loc[allsubs.BIDSconvID == args.subject_ID]
 	
+	# get bids subject name from logfile
 	try:
 		newsubname = srow.bidsID.values[0]
 	except IndexError:
@@ -288,6 +272,7 @@ def main():
 	logfilename_r = '{}_renamelog.tsv'.format(newsubname[4:])
 	logfilepath = join(args.output_dir, 'conversion_log')
 	
+	# check if log dir exists, otherwise make
 	try:
 		os.mkdir(logfilepath)
 	except:
@@ -307,20 +292,20 @@ def main():
 		except:
 			pass
 	
-	
+	# check if intermediate conversion folder exists, if so, warn for overwriting
 	if isdir(join(args.output_dir, newsubname)):
 		print('NB! Converted data of this subject already (partly) exists. Be careful to not overwrite existing files.')
 		
 		# When used directly from command line, this block of code can be uncommented to ask for input when converting existing sub folder
 		# Does not work when submitting batch to cluster
 		
-		#while True:
-		#	answer = input("Do you wish to continue anyway? y / n (possibly overwriting existing files): ")
+		while args.cml = True:
+			answer = input("Do you wish to continue anyway? y / n (possibly overwriting existing files): ")
 			
-		#	if answer.lower() == 'y':
-		#		break
-		#	elif answer.lower() == 'n':
-		#		return 1
+			if answer.lower() == 'y':
+				break
+			elif answer.lower() == 'n':
+				return 1
 	
 	
 	if isdir(join(args.output_dir, args.subject_ID)):
@@ -406,7 +391,7 @@ def main():
 		return 1
 	
 	# if copy converted data with original naming to source data folder
-	if args.keep_sourcedata:
+	if args.keep_sd:
 		for ss in converted_sessions_names:
 			os.makedirs(join(args.output_dir, newsubname, 'sourcedata', ss))
 			os.system('mv {old}/* {new}/'.format(new = join(args.output_dir, newsubname, 'sourcedata', ss), old = join(args.output_dir, args.subject_ID, 'NII_ONLY', ss)))

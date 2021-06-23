@@ -44,7 +44,10 @@ def arg_parser():
 	parser.add_argument('--keep_sourcedata', dest='keep_sd', action='store_true', 
 						help='Save source data - yes (True) or no (False), default: False')
 
-	parser.set_defaults(keep_sd=False)
+	parser.add_argument('--run_as_batch', dest='run_as_batch', action='store_true', 
+						help='Specify if code is run as batch - yes (True) or no (False), default: False')
+
+	parser.set_defaults(keep_sd=False, run_as_batch=False)
 
 	return parser
 
@@ -296,10 +299,10 @@ def main():
 	if isdir(join(args.output_dir, newsubname)):
 		print('NB! Converted data of this subject already (partly) exists. Be careful to not overwrite existing files.')
 		
-		# When used directly from command line, this block of code can be uncommented to ask for input when converting existing sub folder
+		# When used directly from command line, this block of code will ask for input when converting existing sub folder
 		# Does not work when submitting batch to cluster
 		
-		while args.cml = True:
+		while args.run_as_batch == False:
 			answer = input("Do you wish to continue anyway? y / n (possibly overwriting existing files): ")
 			
 			if answer.lower() == 'y':

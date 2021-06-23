@@ -46,26 +46,44 @@ Run main.py as such
 
 				[-se session_ID [session_ID ...]] [-i input_directory]
 
-				[-l log_file] [--keep_sourcedata]
+				[-l log_file] [--keep_sourcedata] [--run_as_batch]
 
-- -s	[REQ]	subject ID
-- -o	[OPT]	output directory for converted (BIDS) dataset, default: output/
-- -i	[OPT]	input directory (root folder of raw dataset), default: input/
-- -se	[OPT]	session ID, can be a string or a list of strings (including one or more session ID's to be converted)
-- -l	[OPT]	lognr csv (define as described in step 1), default: logfile.csv
-- --keep_sourcedata     Save source data - yes (True) or no (False), default: False
+- -s	[REQ]	
+subject ID
+
+- -o	[OPT]	
+output directory for converted (BIDS) dataset, default: output/
+
+- -i	[OPT]	
+input directory (root folder of raw dataset), default: input/
+
+- -se	[OPT]	
+session ID, can be a string or a list of strings (including one or more session ID's to be converted)
+
+- -l	[OPT]	
+lognr csv (define as described in step 1), default: logfile.csv
+
+- --keep_sourcedata [OPT]
+Save source data - yes (True) or no (False), default: False
+
+- --run_as_batch [OPT]
+Specify when running as batch, to avoid prompts for overwriting existing files - yes (True) or no (False), default: False
 
 
 #### Example 1 (from LISA study):
-python main.py -s FN011 -o /mnt/projects/LISA/BIDS_LISA/ -i /mnt/xnat/LISA/arc001/{session}/SCANS/*/RAW/ -l LISA_logno_2FU.csv
+python main.py -s FN011 -o /mnt/projects/output -i /mnt/rawdata/{session}/SCANS/*/RAW -l spec_logno.csv
 
-This command converts all 4 sessions of one subject to the given output directory.
+This command converts all sessions of one subject to the given output directory, using spec_logno.csv as logfile.
 
 #### Example 2:
-python main.py -s FN011 -se ['someID', 'anotherID'] -o /mnt/projects/LISA/BIDS_LISA/ -i /mnt/xnat/LISA/arc001/{session}/SCANS/*/RAW --keep_sourcedata
+python main.py -s FN011 -se ['someID', 'anotherID'] -o /mnt/projects/output -i /mnt/rawdata/{session}/SCANS/*/RAW --keep_sourcedata
 
 This command converts two specified sessions (by their original ID) of one subject to the output directory, while saving the intermittent converted files in [OUTPUTFOLDER]/[OLD_SUBNAME]]/, where OLD_SUBNAME here is FN011.
 
+#### Example 3:
+python main.py -s FN011 -o /mnt/projects/output -i /mnt/rawdata/{session}/SCANS/*/RAW --run_as_batch
+
+This command converts all sessions of one subject, specifying that it is run as a batch, therefore avoiding prompts to the user when files might be overwritten.
 
 
 ### Error logs:

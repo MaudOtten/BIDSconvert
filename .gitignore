@@ -1,7 +1,9 @@
 # folders
-old_code/**
-specs/*
+old_code**
+specs**
+**pycache**
 
 # files
 *.zip
 notes.md
+*.csv

@@ -114,7 +114,7 @@ def convert_session(srow, oldses, newses, convert=True):
 						print('NB! Failed conversion: {} \nCheck .tsv in dataset/conversion_log/ for details.'.format(scanpath))
 						
 						# keep track of failed conversions
-						conversion = {'convs': 1, 'newsub': srow.bidsID, 'newses': newses, 'oldsub':args.subject_ID, 'oldses': oldses, 'ofn': scanpath, 'nfp': ''}
+						conversion = {'convs': 1, 'newsub': srow.bidsID.values[0], 'newses': newses, 'oldsub':args.subject_ID, 'oldses': oldses, 'ofn': scanpath, 'nfp': ''}
 						entry = '{convs}\t{newses}\t{oldsub}\t{oldses}\t{ofn}\t{nfp}'.format(**conversion)
 						failed.append(entry)
 					else:

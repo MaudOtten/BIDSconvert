@@ -56,6 +56,7 @@ def infotodict(seqinfo):
 	
 	#TODO: Find a better way to do this run counting..
 	t1wmprage_run = 0
+	t1wTE_run = 0
 	t2w_run = 0
 	flair1mm_run = 0
 	flairGH_run = 0

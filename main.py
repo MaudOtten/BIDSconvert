@@ -171,14 +171,21 @@ def get_fn_sep(srow, conv_sessions, nr_s):
 				entry['subject'] = subname
 				entry['session'] = sesname
 				
-				oldfilename = oldnames[entry['idx']][:-5]
+				#oldfilename = oldnames[entry['idx']][:-5]
+				
+				oldfilename = oldnames[entry['idx']]
+				exts = oldfilename.split('.')
+				if exts[-1] == 'gz':
+					ext = '.' + exts[-2] + '.' + exts[-1]
+				elif exts[-1] == 'nii':
+					ext = '.' + exts[-1]
+				else:
+					print('NB! File extension of converted files (by dcm2niix) are unknown: not .nii or .nii.gz. Run with --keep_sourcedata and check files in sourcedata folder for issue')
+					return 1
+				
 				newfilename_FULL = key[0].format(s=entry)
 				
 				sp, sep, st, fn = newfilename_FULL.split('/')
-				print('\n\n\n\n--------------\n\n')
-				print('st = ', st)
-				print('fn = ', fn)
-				print('\n\n--------------\n\n\n\n')
 				
 				fn = fn.replace('__', '_')
 				
@@ -207,16 +214,18 @@ def get_fn_sep(srow, conv_sessions, nr_s):
 				# keep track of cp / mv status
 				returned = 0
 				
+				rename_vars = {'m': mode, 'of': oldfile, 'nf': newfile, 'ext': ext}
+
 				if entry['item'] == 'noJSON':
 					# copy / move image without JSON
-					returned = os.system('{} -n {}.nii.gz {}.nii.gz'.format(mode, oldfile, newfile))
+					returned = os.system('{mode} -n {of}{ext} {nf}{ext}'.format(**rename_vars))
 				else:
 					# copy / move file to BIDS name and dir
-					returned = os.system('{} -n {}.nii.gz {}.nii.gz & {} -n {}.json {}.json'.format(mode, oldfile, newfile, mode, oldfile, newfile))
+					returned = os.system('{mode} -n {of}{ext} {nf}{ext} & {mode} -n {of}.json {nf}.json'.format(**rename_vars))
 				
 					# DWI
 					if '_dwi' in fn:
-						returned += os.system('{} -n {}.bval {}.bval & {} -n {}.bvec {}.bvec'.format(mode, oldfile, newfile, mode, oldfile, newfile))
+						returned += os.system('{mode} -n {of}.bval {nf}.bval & {mode} -n {of}.bvec {nf}.bvec'.format(**rename_vars))
 				
 				if returned != 0:
 					returned = 2

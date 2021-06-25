@@ -175,6 +175,10 @@ def get_fn_sep(srow, conv_sessions, nr_s):
 				newfilename_FULL = key[0].format(s=entry)
 				
 				sp, sep, st, fn = newfilename_FULL.split('/')
+				print('\n\n\n\n--------------\n\n')
+				print('st = ', st)
+				print('fn = ', fn)
+				print('\n\n--------------\n\n\n\n')
 				
 				fn = fn.replace('__', '_')
 				
